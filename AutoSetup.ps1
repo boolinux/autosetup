@@ -60,11 +60,33 @@ $response = Read-Host "Bạn có muốn chia ổ cứng không? (Y/N)"
 $DoSplit = $response -match "^[Yy]$"
 
 # ==============================
-# CHECK WINGET
+# AUTO INSTALL WINGET
 # ==============================
+Write-Status "Checking Winget..." "Cyan"
+
 if (-not (Get-Command winget -ErrorAction SilentlyContinue)) {
-    Write-Status "Winget chưa tồn tại. Vui lòng cài Microsoft App Installer trước." "Red"
-    $ErrorOccurred = $true
+
+    Write-Status "Winget not found. Installing..." "Yellow"
+
+    try {
+        $tempPath = "$env:TEMP\AppInstaller.msixbundle"
+        Invoke-WebRequest -Uri "https://aka.ms/getwinget" -OutFile $tempPath
+        Add-AppxPackage -Path $tempPath
+        Start-Sleep 5
+
+        if (-not (Get-Command winget -ErrorAction SilentlyContinue)) {
+            throw "Winget install failed."
+        }
+
+        Write-Status "Winget installed successfully." "Green"
+    }
+    catch {
+        Write-Status "Failed to install Winget." "Red"
+        $ErrorOccurred = $true
+    }
+}
+else {
+    Write-Status "Winget already installed." "Green"
 }
 
 # ==============================
