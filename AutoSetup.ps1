@@ -57,6 +57,16 @@ if (-not ([Security.Principal.WindowsPrincipal] `
     exit
 }
 
+function Initialize-Winget {
+
+    Write-Host "Initializing Winget..." -ForegroundColor Cyan
+
+    winget source update `
+        --accept-source-agreements `
+        --accept-package-agreements | Out-Null
+
+}
+
 # ==============================
 # ASK DISK SPLIT FIRST
 # ==============================
@@ -91,6 +101,7 @@ if (-not (Get-Command winget -ErrorAction SilentlyContinue)) {
 }
 else {
     Write-Status "Winget already installed." "Green"
+    Initialize-Winget
 }
 
 # ==============================
@@ -100,7 +111,9 @@ function Install-App($name, $id) {
 
     Write-Status "Đang kiểm tra $name..." "Cyan"
 
-    $installed = winget list --id $id -e 2>$null
+    $installed = winget list --id $id -e `
+--accept-source-agreements `
+--accept-package-agreements 2>$null
 
     if ($installed) {
         Write-Status "$name đã tồn tại." "Yellow"
