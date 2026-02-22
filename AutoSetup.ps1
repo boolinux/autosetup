@@ -260,10 +260,49 @@ if ($DoSplit) {
 }
 
 # ==============================
+# WINDOWS UPDATE (FINAL STAGE)
+# ==============================
+
+function Invoke-WindowsUpdate {
+
+    Write-Status "Running final Windows Update..." "Cyan"
+
+    try {
+
+        Install-PackageProvider -Name NuGet -Force -Confirm:$false | Out-Null
+        Set-PSRepository -Name "PSGallery" -InstallationPolicy Trusted
+
+        if (-not (Get-Module -ListAvailable -Name PSWindowsUpdate)) {
+            Install-Module PSWindowsUpdate -Force -Confirm:$false -Scope AllUsers
+        }
+
+        Import-Module PSWindowsUpdate
+
+        Get-WindowsUpdate `
+            -MicrosoftUpdate `
+            -AcceptAll `
+            -Install `
+            -IgnoreReboot
+
+        Write-Status "Windows Update completed." "Green"
+
+    }
+    catch {
+        Write-Status "Windows Update failed." "Red"
+        $global:ErrorOccurred = $true
+    }
+}
+
+# ==============================
 # REFRESH EXPLORER
 # ==============================
-Stop-Process -Name explorer -Force
+Stop-Process -Name explorer -ErrorAction SilentlyContinue
 Start-Process explorer
+
+# ==============================
+# FINAL WINDOWS UPDATE
+# ==============================
+Invoke-WindowsUpdate
 
 # ==============================
 # RESTART IF CLEAN
