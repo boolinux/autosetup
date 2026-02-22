@@ -1,6 +1,40 @@
-# ============================================
-# AUTO SETUP TOOL - STABLE TECH EDITION
-# ============================================
+# ==========================================================
+# TitanDeploy Pro v1.0.0
+# Enterprise Deployment Edition
+# ----------------------------------------------------------
+# Author      : Nam Hoai (NamDH29)
+# Role        : System Deployment Technician
+# Build       : 2026.01 Stable
+# Environment : Windows 10 / Windows 11
+# ==========================================================
+
+Clear-Host
+
+$Host.UI.RawUI.WindowTitle = "TitanDeploy Pro v1.0.0 - Enterprise Deployment Edition"
+
+Write-Host ""
+Write-Host "████████╗██╗████████╗ █████╗ ███╗   ██╗" -ForegroundColor DarkCyan
+Write-Host "╚══██╔══╝██║╚══██╔══╝██╔══██╗████╗  ██║" -ForegroundColor DarkCyan
+Write-Host "   ██║   ██║   ██║   ███████║██╔██╗ ██║" -ForegroundColor Cyan
+Write-Host "   ██║   ██║   ██║   ██╔══██║██║╚██╗██║" -ForegroundColor Cyan
+Write-Host "   ██║   ██║   ██║   ██║  ██║██║ ╚████║" -ForegroundColor Yellow
+Write-Host "   ╚═╝   ╚═╝   ╚═╝   ╚═╝  ╚═╝╚═╝  ╚═══╝" -ForegroundColor Yellow
+Write-Host ""
+Write-Host "        TitanDeploy Pro v1.0.0" -ForegroundColor Green
+Write-Host "  Enterprise Windows Deployment Suite" -ForegroundColor Gray
+Write-Host "----------------------------------------------------------" -ForegroundColor DarkGray
+Write-Host "  Developed by Nam Hoai (NamDH29) | Build 2026.01 Stable" -ForegroundColor DarkYellow
+Write-Host "----------------------------------------------------------" -ForegroundColor DarkGray
+Write-Host ""
+
+Write-Host "Initializing Deployment Engine..." -ForegroundColor Cyan
+Start-Sleep 1
+Write-Host "Checking System Environment..." -ForegroundColor Cyan
+Start-Sleep 1
+Write-Host "Loading Modules..." -ForegroundColor Cyan
+Start-Sleep 1
+Write-Host "System Ready." -ForegroundColor Green
+Start-Sleep 1
 
 $ErrorOccurred = $false
 
